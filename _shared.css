@@ -1,0 +1,137 @@
+/* Shared styling for static sub-pages (privacy, terms, 404).
+   The main app's theme is inlined in index.html; this is the minimal
+   subset needed for legal/error pages so they match the brand. */
+
+:root {
+  --black: #000000;
+  --dark: #1d1d1f;
+  --grey-1: #6e6e73;
+  --grey-3: #d2d2d7;
+  --grey-bg: #f5f5f7;
+  --white: #ffffff;
+  --accent: #ff8c00;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(245,245,247,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 22px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--dark);
+}
+.nav-brand-text { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+.nav-cta { font-size: 14px; font-weight: 500; color: var(--accent); text-decoration: none; }
+.nav-cta:hover { text-decoration: underline; }
+
+.logo { display: inline-block; vertical-align: middle; width: 28px; height: 14px; }
+.logo svg { width: 100%; height: 100%; display: block; }
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 22px 100px;
+}
+
+h1 {
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 40px 0 12px;
+}
+p, li {
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+li { margin-left: 20px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.last-updated {
+  color: var(--grey-1);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border-radius: 980px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 16px;
+}
+.btn-back:hover { background: #ffa733; text-decoration: none; }
+
+.footer {
+  background: var(--grey-bg);
+  padding: 32px 22px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--grey-1);
+}
+.footer a { color: var(--grey-1); margin: 0 12px; }
+.footer a:hover { color: var(--dark); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; top: -44px; left: 16px; z-index: 9999;
+  padding: 8px 16px; background: var(--accent); color: var(--white);
+  border-radius: 8px; font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: top 0.2s;
+}
+.skip-link:focus { top: 8px; }

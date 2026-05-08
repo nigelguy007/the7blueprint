@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# After deploy, replace with your real domain in sitemap.xml.
+Sitemap: https://the7blueprint.com/sitemap.xml

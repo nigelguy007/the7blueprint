@@ -244,9 +244,13 @@ function renderResults() {
   root.innerHTML = cats.map((c, idx) => {
     const interp = window.INTERPRETATIONS[c.key]?.[c.score] || {};
     const theme = themes[idx];
-    const locked = idx >= 1; // first one free
+    const locked = idx >= 1 && !state.unlocked; // first one free, rest locked unless unlocked
+    const lockClass = locked ? 'category-locked' : '';
+    const lockCta = locked
+      ? `<button class="category-locked-cta" onclick="showGate()">Unlock to read</button>`
+      : '';
     return `
-      <section class="category-section ${theme}" data-locked="${locked ? '1' : '0'}">
+      <section class="category-section ${theme} ${lockClass}" data-locked="${locked ? '1' : '0'}">
         <div class="category-bg-num" data-parallax="0.35">${c.score}</div>
         <div class="category-content">
           <p class="category-eyebrow reveal">${String(idx + 1).padStart(2, '0')} · ${CONFIG.CATEGORY_LABELS[c.key]}</p>
@@ -269,6 +273,7 @@ function renderResults() {
               <p style="opacity: 0.85;">${esc(interp.avoid)}</p>
             </div>
           </div>
+          ${lockCta}
         </div>
       </section>
     `;
@@ -381,6 +386,12 @@ function revealAll() {
     const w = el.dataset.w;
     if (w) el.style.width = w + '%';
   });
+  // Unblur the locked categories now that the user has unlocked
+  document.querySelectorAll('.category-section.category-locked').forEach(el => {
+    el.classList.remove('category-locked');
+    el.dataset.locked = '0';
+  });
+  document.querySelectorAll('.category-locked-cta').forEach(el => el.remove());
 }
 
 // Dismiss the email gate WITHOUT unlocking — user stays in free preview mode

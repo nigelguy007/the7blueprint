@@ -700,6 +700,57 @@
       margin-bottom: 12px;
     }
     .category-block.avoid .label { color: var(--grey-1); }
+
+    /* ---------- Locked categories (free tier) ---------- */
+    /* The first category is always free. Categories 2-7 show the title and
+       alignment %, but the deep tactical/avoid blocks are blurred until
+       the user unlocks via email. */
+    .category-section.category-locked .category-grid {
+      filter: blur(10px);
+      pointer-events: none;
+      user-select: none;
+      transition: filter 0.6s ease;
+    }
+    .category-section.category-locked .category-grid::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+    .category-locked-cta {
+      position: absolute;
+      bottom: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      box-shadow: 0 8px 24px rgba(255,140,0,0.35);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.18s, transform 0.18s;
+      white-space: nowrap;
+    }
+    .category-locked-cta:hover {
+      background: var(--accent-hover);
+      transform: translateX(-50%) translateY(-1px);
+    }
+    .category-locked-cta::before {
+      content: "🔒";
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      .category-locked-cta { bottom: 32px; font-size: 13px; padding: 12px 22px; }
+    }
+
     .category-block p {
       font-size: 19px;
       line-height: 1.45;
@@ -1284,7 +1335,7 @@
     <section class="upsell-section" id="upsell-section">
       <p class="upsell-eyebrow">Premium</p>
       <h2 class="upsell-headline">The Implementation Pack</h2>
-      <p class="upsell-price"><span class="strike">$57</span>$27</p>
+      <p class="upsell-price"><span class="strike">$97</span>$47</p>
 
       <ul class="upsell-list">
         <li><span class="check">✓</span> Full 30-page interpretation report (designed PDF)</li>
@@ -1293,7 +1344,7 @@
         <li><span class="check">✓</span> Weekly tactical email for 30 days</li>
       </ul>
 
-      <a id="stripe-link" href="#" target="_blank" rel="noopener" class="btn btn-on-dark btn-arrow">Get the Implementation Pack — $27</a>
+      <a id="stripe-link" href="#" target="_blank" rel="noopener" class="btn btn-on-dark btn-arrow">Get the Implementation Pack — $47</a>
       <p style="font-size: 12px; color: var(--grey-1); margin-top: 16px;">Secure checkout via Stripe</p>
 
       <button onclick="restart()" style="display: block; margin: 56px auto 0; background: none; border: none; color: var(--grey-1); font-family: inherit; font-size: 14px; cursor: pointer;">Take the assessment again</button>

@@ -98,15 +98,15 @@
     /* ---------- Typography ---------- */
     .display {
       font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      font-size: clamp(48px, 8vw, 96px);
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      font-size: clamp(36px, 5.5vw, 72px);
     }
     .display-xl {
       font-weight: 700;
-      letter-spacing: -0.05em;
-      line-height: 1.02;
-      font-size: clamp(56px, 11vw, 144px);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      font-size: clamp(40px, 6.5vw, 88px);
     }
     .display-eyebrow {
       font-weight: 600;
@@ -279,15 +279,20 @@
       inset: 0;
       pointer-events: none;
       overflow: hidden;
-      opacity: 0.06;
+      opacity: 0.09;
     }
     .hero-bg-numbers span {
       position: absolute;
-      font-size: clamp(140px, 24vw, 320px);
+      font-size: clamp(160px, 28vw, 360px);
       font-weight: 800;
       letter-spacing: -0.06em;
       color: var(--white);
       will-change: transform;
+      transition: transform 0.05s linear;
+    }
+    /* Hero text fades and floats up as you scroll down past the hero */
+    .hero-content {
+      will-change: transform, opacity;
     }
 
     /* ---------- Scroll-revealed sections ---------- */
@@ -641,10 +646,10 @@
       letter-spacing: -0.01em;
     }
     .category-title {
-      font-size: clamp(48px, 7vw, 96px);
+      font-size: clamp(36px, 5.5vw, 72px);
       font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
       margin-bottom: 24px;
     }
     .category-tagline {
@@ -945,10 +950,11 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-bg-numbers" id="heroBg" aria-hidden="true">
-        <span style="top: 8%; left: 4%;" data-speed="0.18">7</span>
-        <span style="top: 28%; right: 6%;" data-speed="0.12">11</span>
-        <span style="top: 62%; left: 12%;" data-speed="0.22">3</span>
-        <span style="top: 70%; right: 18%;" data-speed="0.16">9</span>
+        <span style="top: 6%; left: 3%;" data-speed="0.35">7</span>
+        <span style="top: 22%; right: 5%;" data-speed="0.22">11</span>
+        <span style="top: 50%; left: 10%;" data-speed="0.45">3</span>
+        <span style="top: 68%; right: 14%;" data-speed="0.30">9</span>
+        <span style="top: 80%; left: 38%;" data-speed="0.55">6</span>
       </div>
       <div class="hero-glow"></div>
       <div class="hero-content">

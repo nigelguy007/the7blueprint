@@ -246,7 +246,7 @@ function renderResults() {
     const locked = idx >= 1; // first one free
     return `
       <section class="category-section ${theme}" data-locked="${locked ? '1' : '0'}">
-        <div class="category-bg-num" data-parallax="0.18">${c.score}</div>
+        <div class="category-bg-num" data-parallax="0.35">${c.score}</div>
         <div class="category-content">
           <p class="category-eyebrow reveal">${String(idx + 1).padStart(2, '0')} · ${CONFIG.CATEGORY_LABELS[c.key]}</p>
           <h2 class="category-title reveal reveal-delay-1">${esc(interp.name) || 'Pattern'}</h2>
@@ -446,20 +446,32 @@ function attachParallax() {
     requestAnimationFrame(() => {
       rafScheduled = false;
       const y = window.scrollY || window.pageYOffset;
+      const vh = window.innerHeight;
 
-      // Hero background numbers
+      // Hero background numbers — float at varied speeds
       document.querySelectorAll('#heroBg span').forEach(el => {
-        const speed = parseFloat(el.dataset.speed || '0.15');
-        el.style.transform = `translateY(${y * speed}px)`;
+        const speed = parseFloat(el.dataset.speed || '0.3');
+        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
       });
 
-      // Category background numbers
+      // Hero content (logo + headline + buttons) — slow fade + drift up as you scroll past hero
+      const heroContent = document.querySelector('.hero .hero-content');
+      if (heroContent) {
+        const fadeDistance = vh * 0.65;
+        const progress = Math.min(1, Math.max(0, y / fadeDistance));
+        const drift = -y * 0.35;
+        const opacity = 1 - progress;
+        heroContent.style.transform = `translate3d(0, ${drift}px, 0)`;
+        heroContent.style.opacity = String(opacity);
+      }
+
+      // Category background numbers — strong parallax against scroll
       document.querySelectorAll('[data-parallax]').forEach(el => {
         const rect = el.getBoundingClientRect();
-        const center = rect.top + rect.height / 2 - window.innerHeight / 2;
-        const speed = parseFloat(el.dataset.parallax || '0.15');
+        const center = rect.top + rect.height / 2 - vh / 2;
+        const speed = parseFloat(el.dataset.parallax || '0.35');
         const offset = -center * speed;
-        el.style.transform = `translate(0, calc(-50% + ${offset}px))`;
+        el.style.transform = `translate3d(0, calc(-50% + ${offset}px), 0)`;
       });
     });
   };

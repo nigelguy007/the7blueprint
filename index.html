@@ -755,7 +755,46 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+      position: relative;
     }
+    .gate-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--grey-bg);
+      color: var(--grey-1);
+      font-size: 20px;
+      font-weight: 400;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.18s, color 0.18s;
+      font-family: inherit;
+    }
+    .gate-close:hover {
+      background: var(--grey-3);
+      color: var(--dark);
+    }
+    .gate-skip {
+      display: block;
+      margin-top: 18px;
+      background: none;
+      border: none;
+      color: var(--grey-1);
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: inherit;
+      width: 100%;
+    }
+    .gate-skip:hover { color: var(--dark); }
     .gate-card h3 {
       font-size: 36px;
       font-weight: 700;
@@ -1268,12 +1307,14 @@
        ====================================================================== -->
   <div class="gate-overlay" id="gate-overlay" role="dialog" aria-modal="true" aria-labelledby="gate-heading">
     <div class="gate-card">
+      <button class="gate-close" onclick="dismissGate()" aria-label="Close">×</button>
       <h3 id="gate-heading">Want your full blueprint?</h3>
       <p>Unlock all seven dimensions with detailed tactics and anti-patterns. Free.</p>
       <label for="email-input" class="sr-only">Email address</label>
       <input id="email-input" type="email" class="form-input" placeholder="your@email.com" />
       <button class="btn btn-primary" onclick="unlockResults()">Unlock my full blueprint</button>
       <p class="fineprint">We email you the report and occasional tips. Unsubscribe anytime.</p>
+      <button class="gate-skip" onclick="dismissGate()">Maybe later — show me the summary</button>
     </div>
   </div>
 

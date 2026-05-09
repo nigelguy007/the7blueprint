@@ -40,7 +40,8 @@ const state = {
   responses:  {},
   chart:      null,
   blueprint:  null,
-  unlocked:   false
+  unlocked:        false,
+  gateDismissed:   false
 };
 
 // ---------------------------------------------------------------------------
@@ -178,8 +179,8 @@ function submitQuiz() {
   const messages = [
     'Reading the numbers',
     'Mapping the unseen patterns',
-    'Aligning your operator style',
-    'Drawing your mobiusinfinity007'
+    'Aligning how you actually work',
+    'Drawing your blueprint'
   ];
   let i = 0;
   const msgEl = document.getElementById('loading-msg');
@@ -319,7 +320,7 @@ function showGateOnScroll() {
   const triggerSection = sections[1]; // gate appears as they enter category #2
   const observer = new IntersectionObserver((entries) => {
     for (const e of entries) {
-      if (e.isIntersecting && !state.unlocked) {
+      if (e.isIntersecting && !state.unlocked && !state.gateDismissed) {
         showGate();
         observer.disconnect();
         return;
@@ -327,6 +328,15 @@ function showGateOnScroll() {
     }
   }, { threshold: 0.2 });
   observer.observe(triggerSection);
+
+  // Allow the user to re-open the gate by tapping any locked/blurred card
+  document.querySelectorAll('#results-cards .category-section').forEach((sec, idx) => {
+    if (idx === 0) return; // first one is free
+    sec.style.cursor = 'pointer';
+    sec.addEventListener('click', () => {
+      if (!state.unlocked) showGate();
+    });
+  });
 }
 
 async function unlockResults() {
@@ -361,7 +371,7 @@ async function unlockResults() {
   state.unlocked = true;
   document.getElementById('gate-overlay').classList.remove('active');
   revealAll();
-  showToast('Your mobiusinfinity007 is on its way — check your inbox.');
+  showToast('Your blueprint is on its way — check your inbox.');
 }
 
 function revealAll() {
@@ -371,6 +381,16 @@ function revealAll() {
     const w = el.dataset.w;
     if (w) el.style.width = w + '%';
   });
+}
+
+// Dismiss the email gate WITHOUT unlocking — user stays in free preview mode
+// (first category visible, rest blurred). They can scroll back up to revisit
+// what's free, and the overlay won't auto-show again on this scroll.
+function dismissGate() {
+  document.getElementById('gate-overlay').classList.remove('active');
+  // Mark dismissed so the IntersectionObserver doesn't keep popping it
+  state.gateDismissed = true;
+  showToast("No problem — here's your free preview. Tap any locked card to unlock later.");
 }
 
 function summarizeBlueprint() {

@@ -361,6 +361,7 @@ async function unlockResults() {
   state.unlocked = true;
   document.getElementById('gate-overlay').classList.remove('active');
   revealAll();
+  showToast('Your mobiusinfinity007 is on its way — check your inbox.');
 }
 
 function revealAll() {
@@ -508,8 +509,20 @@ function updateNavTheme() {
 // ===========================================================================
 // INIT
 // ===========================================================================
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 5000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   setupFocusTrap();
+  // Restore unlock state for returning visitors
+  try {
+    if (localStorage.getItem('bp_unlocked') === '1') state.unlocked = true;
+  } catch (_) {}
   // Keyboard helpers
   document.getElementById('dob-year')?.addEventListener('keydown', e => { if (e.key === 'Enter') submitDOB(); });
   document.getElementById('name-input')?.addEventListener('keydown', e => { if (e.key === 'Enter') submitName(); });

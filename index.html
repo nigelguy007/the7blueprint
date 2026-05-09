@@ -878,6 +878,30 @@
     /* ---------- Hidden helper ---------- */
     .hidden { display: none !important; }
 
+    /* ---------- Toast ---------- */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--dark);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 300;
+      white-space: nowrap;
+      max-width: calc(100vw - 44px);
+      text-align: center;
+    }
+    #toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     /* ---------- Accessibility ---------- */
     .skip-link {
       position: absolute; top: -44px; left: 16px; z-index: 9999;
@@ -1227,6 +1251,9 @@
     </div>
   </div>
 
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script defer data-domain="the7blueprint.com" src="https://plausible.io/js/script.js"></script>
   <script src="calculator.js"></script>
   <script src="interpretations.js"></script>
   <script src="app.js"></script>

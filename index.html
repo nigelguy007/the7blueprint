@@ -4,28 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="format-detection" content="telephone=no" />
-  <title>mobiusinfinity007 — Discover the way you're wired to build.</title>
+  <title>the7blueprint — Discover the way you're wired to build.</title>
   <meta name="description" content="A 3-minute assessment that reveals how you're wired to build, sell, and scale across seven dimensions of your business." />
   <meta name="theme-color" content="#000000" />
   <meta name="robots" content="index, follow" />
-  <meta name="author" content="mobiusinfinity007" />
+  <meta name="author" content="the7blueprint" />
 
   <!-- Canonical (replace YOURDOMAIN.com with your real domain after launch) -->
   <link rel="canonical" href="https://the7blueprint.com/" />
 
   <!-- Open Graph (Facebook / LinkedIn / iMessage / Slack) -->
-  <meta property="og:title" content="mobiusinfinity007 — Discover the way you're wired to build." />
+  <meta property="og:title" content="the7blueprint — Discover the way you're wired to build." />
   <meta property="og:description" content="A 3-minute assessment. Seven dimensions of your business. One blueprint that's unmistakably yours." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://the7blueprint.com/" />
   <meta property="og:image" content="https://the7blueprint.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="mobiusinfinity007" />
+  <meta property="og:site_name" content="the7blueprint" />
 
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="mobiusinfinity007 — Discover the way you're wired to build." />
+  <meta name="twitter:title" content="the7blueprint — Discover the way you're wired to build." />
   <meta name="twitter:description" content="A 3-minute assessment. Seven dimensions. One blueprint." />
   <meta name="twitter:image" content="https://the7blueprint.com/og-image.png" />
 
@@ -34,7 +34,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "mobiusinfinity007",
+    "name": "the7blueprint",
     "url": "https://the7blueprint.com/",
     "description": "A 3-minute business blueprint assessment combining numerology and operator self-knowledge.",
     "applicationCategory": "BusinessApplication",
@@ -939,8 +939,24 @@
       display: block;
       width: clamp(120px, 18vw, 220px);
       height: clamp(60px, 9vw, 110px);
-      margin: 0 auto 32px;
+      margin: 0 auto 0;
       animation: logoGlow 3.2s ease-in-out infinite;
+    }
+    .hero-brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+    .hero-wordmark {
+      display: block;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      margin-top: -8px; /* tucks the wordmark up into the orange glow */
+      line-height: 1;
     }
     .logo-medium {
       display: block;
@@ -1049,7 +1065,7 @@
     <div class="nav-inner">
       <a href="#" class="nav-brand" onclick="goToScreen('landing'); return false;">
         <span class="logo"><svg aria-hidden="true"><use href="#logoInfinity"/></svg></span>
-        <span class="nav-brand-text">mobiusinfinity007</span>
+        <span class="nav-brand-text">the7blueprint</span>
       </a>
       <a href="#" class="nav-cta" onclick="goToScreen('dob'); return false;">Take the assessment ›</a>
     </div>
@@ -1072,7 +1088,10 @@
       </div>
       <div class="hero-glow"></div>
       <div class="hero-content">
-        <span class="logo-large"><svg aria-hidden="true"><use href="#logoInfinity"/></svg></span>
+        <div class="hero-brand-lockup">
+          <span class="logo-large"><svg aria-hidden="true"><use href="#logoInfinity"/></svg></span>
+          <span class="hero-wordmark">the7blueprint</span>
+        </div>
         <p style="font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px;">For founders · operators · creators</p>
         <h1 class="display-xl gradient-text">
           Stop forcing<br/>someone else's blueprint.

@@ -1,5 +1,86 @@
+# the7blueprint — robots.txt
+# https://the7blueprint.com
+
+# Default rule — allow all well-behaved crawlers everything except API endpoints
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*.json$
 
-# After deploy, replace with your real domain in sitemap.xml.
+# Search engine crawlers — explicitly allowed
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /brand/
+Allow: /og-image.svg
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Social-media preview crawlers — needed for link unfurling on Facebook, X, iMessage, Slack, LinkedIn
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: Pinterestbot
+Allow: /
+
+# AI-training crawlers — opted out by default to protect the interpretation library IP.
+# Comment any of these out if you want your content used in AI training data.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+# Sitemap location
 Sitemap: https://the7blueprint.com/sitemap.xml

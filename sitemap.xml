@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage — primary landing page, the assessment lives here -->
   <url>
     <loc>https://the7blueprint.com/</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://the7blueprint.com/og-image.svg</image:loc>
+      <image:title>the7blueprint — Discover the way you're wired to build</image:title>
+      <image:caption>A 3-minute founder archetype quiz across seven business dimensions.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://the7blueprint.com/brand/logo-profile-dark-1024.png</image:loc>
+      <image:title>the7blueprint logo</image:title>
+    </image:image>
   </url>
+
+  <!-- Privacy policy -->
   <url>
-    <loc>https://the7blueprint.com/privacy</loc>
+    <loc>https://the7blueprint.com/privacy.html</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- Terms of service -->
   <url>
-    <loc>https://the7blueprint.com/terms</loc>
+    <loc>https://the7blueprint.com/terms.html</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
 </urlset>

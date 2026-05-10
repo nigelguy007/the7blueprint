@@ -7,8 +7,9 @@
 // CONFIGURATION — edit these to monetize
 // ---------------------------------------------------------------------------
 const CONFIG = {
-  // Checkout URL — currently Revolut, was originally Stripe. Same pattern: any payment link works here.
+  // Checkout URLs — Tier 1 ($47) and Tier 2 ($197). Replace with your real Revolut/Stripe links.
   STRIPE_PAYMENT_LINK: 'https://checkout.revolut.com/pay/cbde0607-8a14-4e6c-ac59-fd06d17dd645',
+  SPRINT_PAYMENT_LINK: 'https://checkout.revolut.com/pay/REPLACE_WITH_197_LINK',
   EMAIL_ENDPOINT: '/api/subscribe',
 
   CATEGORY_LABELS: {
@@ -280,11 +281,11 @@ function renderResults() {
     `;
   }).join('');
 
-  // Configure stripe link
+  // Configure checkout links — Tier 1 ($47) and Tier 2 ($197)
   const stripeBtn = document.getElementById('stripe-link');
-  if (stripeBtn && CONFIG.STRIPE_PAYMENT_LINK) {
-    stripeBtn.href = CONFIG.STRIPE_PAYMENT_LINK;
-  }
+  if (stripeBtn && CONFIG.STRIPE_PAYMENT_LINK) stripeBtn.href = CONFIG.STRIPE_PAYMENT_LINK;
+  const sprintBtn = document.getElementById('sprint-link');
+  if (sprintBtn && CONFIG.SPRINT_PAYMENT_LINK) sprintBtn.href = CONFIG.SPRINT_PAYMENT_LINK;
 
   // If they're not unlocked yet, show the gate after the first category section
   // becomes visible (so they get a teaser before the prompt).
@@ -393,6 +394,211 @@ function revealAll() {
     el.dataset.locked = '0';
   });
   document.querySelectorAll('.category-locked-cta').forEach(el => el.remove());
+}
+
+// ===========================================================================
+// SHAREABLE RESULT IMAGE — Priority 1 viral mechanic
+// Generates a 1080x1080 PNG with the user's archetype + alignment + branding,
+// then uses Web Share API on mobile or download fallback on desktop.
+// ===========================================================================
+function generateShareImage() {
+  const canvas = document.getElementById('shareCanvas');
+  if (!canvas || !state.blueprint) return null;
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1080;
+
+  // Pull top archetype (highest alignment)
+  const cats = Object.entries(state.blueprint.categories)
+    .map(([key, val]) => ({ key, ...val }))
+    .sort((a, b) => b.alignment - a.alignment);
+  const top = cats[0];
+  const interp = (window.INTERPRETATIONS[top.key] || {})[top.score] || {};
+  const archetypeName = interp.name || 'Pattern';
+  const categoryLabel = (CONFIG.CATEGORY_LABELS[top.key] || '').toUpperCase();
+  const firstName = (state.fullName || 'there').split(' ')[0];
+
+  // Background — radial warm glow on black
+  const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.7);
+  grad.addColorStop(0, '#1a0d00');
+  grad.addColorStop(0.6, '#000000');
+  grad.addColorStop(1, '#000000');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Top eyebrow — small uppercase orange
+  ctx.fillStyle = '#ff8c00';
+  ctx.font = '600 24px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('THE7BLUEPRINT · FOUNDER ARCHETYPE', W/2, 100);
+
+  // "I'M A..." line
+  ctx.fillStyle = '#a1a1a6';
+  ctx.font = '500 38px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.fillText(`I'm a`, W/2, 220);
+
+  // BIG archetype name — the headline
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 110px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  // Wrap if too long
+  const maxWidth = W - 120;
+  const words = archetypeName.split(' ');
+  let line = '';
+  let yPos = 360;
+  const lines = [];
+  for (const w of words) {
+    const test = line ? line + ' ' + w : w;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = w;
+    } else {
+      line = test;
+    }
+  }
+  lines.push(line);
+  for (const ln of lines) {
+    ctx.fillText(ln, W/2, yPos);
+    yPos += 124;
+  }
+
+  // Category label small under archetype
+  ctx.fillStyle = '#86868b';
+  ctx.font = '600 22px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.fillText(categoryLabel, W/2, yPos + 10);
+
+  // Glowing infinity symbol — drawn lower middle
+  drawInfinityOnCanvas(ctx, W/2, 780, 240);
+
+  // Alignment percentage
+  ctx.fillStyle = '#ff8c00';
+  ctx.font = '700 64px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.fillText(`${Math.round(top.alignment)}% alignment`, W/2, 920);
+
+  // Bottom CTA wordmark
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 38px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.fillText('the7blueprint.com', W/2, 1010);
+
+  // What's your archetype prompt
+  ctx.fillStyle = '#86868b';
+  ctx.font = '500 22px -apple-system, "SF Pro Display", Helvetica, sans-serif';
+  ctx.fillText('What\'s your founder archetype?', W/2, 1050);
+
+  return canvas;
+}
+
+// Draw the glowing infinity logo on canvas (mimics the inline SVG)
+function drawInfinityOnCanvas(ctx, cx, cy, scale) {
+  const s = scale / 200; // base path is 200 wide
+
+  ctx.save();
+  ctx.translate(cx - 100*s, cy - 50*s);
+  ctx.scale(s, s);
+
+  // Path: M 100 50 C 130 18 170 18 170 50 C 170 82 130 82 100 50 C 70 18 30 18 30 50 C 30 82 70 82 100 50 Z
+  const pathFn = () => {
+    ctx.beginPath();
+    ctx.moveTo(100, 50);
+    ctx.bezierCurveTo(130, 18, 170, 18, 170, 50);
+    ctx.bezierCurveTo(170, 82, 130, 82, 100, 50);
+    ctx.bezierCurveTo(70, 18, 30, 18, 30, 50);
+    ctx.bezierCurveTo(30, 82, 70, 82, 100, 50);
+    ctx.closePath();
+  };
+
+  // Outer warm halo (faux glow via shadow blur)
+  ctx.shadowColor = 'rgba(255, 140, 0, 0.85)';
+  ctx.shadowBlur = 35;
+  ctx.lineWidth = 14;
+  ctx.strokeStyle = 'rgba(255, 140, 0, 0.55)';
+  ctx.lineCap = 'round';
+  pathFn();
+  ctx.stroke();
+
+  // Main stroke — gradient simulated with solid orange
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = '#ffcc66';
+  pathFn();
+  ctx.stroke();
+
+  // Bright core
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#fff8e7';
+  pathFn();
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+async function shareResult() {
+  const canvas = generateShareImage();
+  if (!canvas) {
+    showToast('Take the assessment first to generate your share image.');
+    return;
+  }
+
+  const cats = Object.entries(state.blueprint.categories)
+    .map(([key, val]) => ({ key, ...val }))
+    .sort((a, b) => b.alignment - a.alignment);
+  const top = cats[0];
+  const interp = (window.INTERPRETATIONS[top.key] || {})[top.score] || {};
+  const archetypeName = interp.name || 'Pattern';
+
+  const shareText = `I'm a ${archetypeName} on the7blueprint — a 3-minute founder archetype quiz. What's yours?`;
+  const shareUrl = 'https://the7blueprint.com';
+
+  // Convert canvas → blob
+  canvas.toBlob(async (blob) => {
+    if (!blob) { showToast('Could not generate image.'); return; }
+    const file = new File([blob], 'my-the7blueprint.png', { type: 'image/png' });
+
+    // Try Web Share API with file (mobile native share sheet → IG Stories, Messages, etc.)
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'My founder archetype',
+          text: shareText,
+          url: shareUrl
+        });
+        return;
+      } catch (e) {
+        // User cancelled or error — fall through to download
+      }
+    }
+
+    // Fallback: download the PNG
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-the7blueprint.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Saved your blueprint image — share it on Stories or with a friend.');
+  }, 'image/png', 0.95);
+}
+
+// Generate a unique invite link for friends + use Web Share API
+async function inviteFriend() {
+  const inviteUrl = 'https://the7blueprint.com?ref=friend';
+  const text = "Take the7blueprint with me — find out your founder archetype in 3 minutes.";
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'the7blueprint', text, url: inviteUrl });
+      return;
+    } catch (e) { /* fall through */ }
+  }
+
+  // Desktop fallback: copy link
+  try {
+    await navigator.clipboard.writeText(inviteUrl);
+    showToast('Invite link copied — paste it to a friend.');
+  } catch (e) {
+    showToast('Share this link: ' + inviteUrl);
+  }
 }
 
 // Dismiss the email gate WITHOUT unlocking — user stays in free preview mode

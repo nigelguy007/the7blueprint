@@ -29,22 +29,135 @@
   <meta name="twitter:description" content="A 3-minute assessment. Seven dimensions. One blueprint." />
   <meta name="twitter:image" content="https://the7blueprint.com/og-image.png" />
 
-  <!-- Structured data — helps Google understand the page -->
+  <!-- Structured data — comprehensive Schema.org graph for rich Google results -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "the7blueprint",
-    "url": "https://the7blueprint.com/",
-    "description": "A 3-minute business blueprint assessment combining numerology and operator self-knowledge.",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free assessment with paid Implementation Pack upgrade."
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://the7blueprint.com/#org",
+        "name": "the7blueprint",
+        "url": "https://the7blueprint.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://the7blueprint.com/brand/logo-profile-dark-1024.png",
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "the7blueprint is a 3-minute founder archetype quiz that reveals your unique business blueprint across seven dimensions, derived from your birth date, name, and operator style.",
+        "sameAs": [
+          "https://www.tiktok.com/@the7blueprint",
+          "https://www.instagram.com/the7blueprint"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://the7blueprint.com/#website",
+        "url": "https://the7blueprint.com/",
+        "name": "the7blueprint",
+        "description": "Discover your founder archetype in 3 minutes — across 7 business dimensions.",
+        "publisher": { "@id": "https://the7blueprint.com/#org" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://the7blueprint.com/#app",
+        "name": "the7blueprint Founder Archetype Quiz",
+        "url": "https://the7blueprint.com/",
+        "description": "A 3-minute founder archetype quiz combining numerology with operator self-knowledge to reveal your unique business blueprint across 7 dimensions.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Free Assessment",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free 3-minute quiz with one full archetype reading + alignment scores for all 7 dimensions."
+          },
+          {
+            "@type": "Offer",
+            "name": "Implementation Pack",
+            "price": "47",
+            "priceCurrency": "USD",
+            "description": "30-page interpretation report, 90-day action plan, weekly tactical emails for 30 days."
+          },
+          {
+            "@type": "Offer",
+            "name": "90-Day Action Sprint",
+            "price": "197",
+            "priceCurrency": "USD",
+            "description": "Daily archetype-specific coaching, accountability prompts, worksheets, community, two Q&A calls."
+          }
+        ]
+      },
+      {
+        "@type": "Quiz",
+        "@id": "https://the7blueprint.com/#quiz",
+        "name": "Founder Archetype Quiz",
+        "about": "Reveals your founder archetype across seven business dimensions: market entry, offer architecture, service delivery, conversion pathway, brand messaging, content strategy, and pricing.",
+        "educationalUse": "Self-assessment",
+        "typicalAgeRange": "18-65",
+        "timeRequired": "PT3M",
+        "isPartOf": { "@id": "https://the7blueprint.com/#app" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://the7blueprint.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the7blueprint?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "the7blueprint is a 3-minute founder archetype quiz that reveals how you're wired to build a business. It combines a numerology chart calculated from your birth date and name with twelve operator questions about how you actually work, then maps your unique blueprint across seven dimensions: market entry strategy, offer architecture, service delivery, conversion pathway, brand messaging, content strategy, and pricing structure."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does the quiz take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Three minutes. Enter your birth date, full name, and answer twelve quick statements about how you work. Your archetype reading is generated instantly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the quiz free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The full quiz is free, including one complete archetype reading and alignment scores across all seven dimensions. Optional paid upgrades unlock the Implementation Pack ($47) and 90-Day Action Sprint ($197)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is this different from MBTI or Human Design?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MBTI tells you your personality type. Human Design tells you your energetic type. the7blueprint is specifically built for founders, operators, and creators — it tells you how you're wired to build a business across seven concrete operational dimensions, not abstract traits."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to enter my email?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. You can take the full assessment and read your top archetype without an email. Email is only required to unlock the deep tactical guidance and anti-pattern detail across all seven categories."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my data shared?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your birth date and name stay in your browser unless you choose to unlock the full report. Email is only used to deliver your blueprint and occasional related tips. We never sell your data."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -619,6 +732,47 @@
     .friction-pill .dot.medium { background: #ffcc00; }
     .friction-pill .dot.high { background: #ff3b30; }
 
+    /* ---------- Share + invite buttons on results hero ---------- */
+    .result-share-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .result-share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .result-share-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .result-invite-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .result-invite-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
     .category-section {
       min-height: 100vh;
       display: flex;
@@ -916,6 +1070,78 @@
     }
     .upsell-list li:last-child { border-bottom: none; }
     .upsell-list .check { color: var(--accent); font-weight: 700; }
+
+    /* ---------- Tier grid (Implementation Pack + 90-Day Sprint) ---------- */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    @media (max-width: 760px) {
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+    .tier-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 32px;
+      position: relative;
+    }
+    .tier-card.tier-featured {
+      background: rgba(255,140,0,0.08);
+      border-color: rgba(255,140,0,0.4);
+      box-shadow: 0 20px 60px rgba(255,140,0,0.15);
+    }
+    .tier-badge {
+      position: absolute;
+      top: -14px; left: 32px;
+      background: var(--accent);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .tier-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .tier-name {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .tier-price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .tier-price .strike {
+      color: var(--grey-1);
+      text-decoration: line-through;
+      font-weight: 400;
+      margin-right: 10px;
+      font-size: 28px;
+    }
+    .tier-tagline {
+      font-size: 15px;
+      color: var(--grey-2);
+      margin-bottom: 24px;
+    }
+    .tier-card .upsell-list { max-width: none; margin-bottom: 24px; text-align: left; }
+    .tier-card .btn { width: 100%; justify-content: center; }
 
     /* ---------- Footer ---------- */
     .footer {
@@ -1344,27 +1570,70 @@
           <span class="dot" id="friction-dot"></span>
           <span id="friction-text">—</span>
         </div>
+
+        <!-- Share + invite-friend CTAs -->
+        <div class="result-share-row">
+          <button class="result-share-btn" onclick="shareResult()" aria-label="Share my blueprint">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+            Share my blueprint
+          </button>
+          <button class="result-invite-btn" onclick="inviteFriend()" aria-label="Take it with a friend">
+            Take it with a friend ›
+          </button>
+        </div>
       </div>
     </section>
+
+    <!-- Hidden canvas used to render the shareable result image (1080x1080) -->
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none" aria-hidden="true"></canvas>
 
     <!-- Category sections injected here -->
     <div id="results-cards"></div>
 
-    <!-- Upsell -->
+    <!-- Upsell — two tier offer -->
     <section class="upsell-section" id="upsell-section">
-      <p class="upsell-eyebrow">Premium</p>
-      <h2 class="upsell-headline">The Implementation Pack</h2>
-      <p class="upsell-price"><span class="strike">$97</span>$47</p>
+      <p class="upsell-eyebrow">Go deeper</p>
+      <h2 class="upsell-headline">Two ways to use your blueprint.</h2>
+      <p style="color: var(--grey-1); font-size: 17px; max-width: 540px; margin: 0 auto 56px;">
+        Pick the level that matches where you are. Both come with a 14-day refund — no questions.
+      </p>
 
-      <ul class="upsell-list">
-        <li><span class="check">✓</span> Full 30-page interpretation report (designed PDF)</li>
-        <li><span class="check">✓</span> 90-day action plan tailored to your blueprint</li>
-        <li><span class="check">✓</span> The 5 anti-patterns most likely to cost you money</li>
-        <li><span class="check">✓</span> Weekly tactical email for 30 days</li>
-      </ul>
+      <div class="tier-grid">
+        <!-- Tier 1: Implementation Pack ($47) -->
+        <div class="tier-card">
+          <p class="tier-eyebrow">Tier 1 · Self-serve</p>
+          <h3 class="tier-name">The Implementation Pack</h3>
+          <p class="tier-price"><span class="strike">$97</span>$47</p>
+          <p class="tier-tagline">For founders who want the playbook in writing.</p>
+          <ul class="upsell-list">
+            <li><span class="check">✓</span> Full 30-page interpretation report (designed PDF)</li>
+            <li><span class="check">✓</span> 90-day action plan tailored to your blueprint</li>
+            <li><span class="check">✓</span> The 5 anti-patterns most likely to cost you money</li>
+            <li><span class="check">✓</span> Weekly tactical email for 30 days</li>
+          </ul>
+          <a id="stripe-link" href="#" target="_blank" rel="noopener" class="btn btn-on-dark btn-arrow">Get it — $47</a>
+        </div>
 
-      <a id="stripe-link" href="#" target="_blank" rel="noopener" class="btn btn-on-dark btn-arrow">Get the Implementation Pack — $47</a>
-      <p style="font-size: 12px; color: var(--grey-1); margin-top: 16px;">Secure checkout via Stripe</p>
+        <!-- Tier 2: 90-Day Action Sprint ($197) -->
+        <div class="tier-card tier-featured">
+          <span class="tier-badge">Most popular</span>
+          <p class="tier-eyebrow">Tier 2 · Coached</p>
+          <h3 class="tier-name">The 90-Day Action Sprint</h3>
+          <p class="tier-price"><span class="strike">$397</span>$197</p>
+          <p class="tier-tagline">For founders who want accountability with the playbook.</p>
+          <ul class="upsell-list">
+            <li><span class="check">✓</span> Everything in the Implementation Pack</li>
+            <li><span class="check">✓</span> Daily coaching email for 90 days, written for your archetype</li>
+            <li><span class="check">✓</span> Weekly accountability prompts ("Did you ship X this week?")</li>
+            <li><span class="check">✓</span> Archetype-specific worksheets — pricing, offer, content</li>
+            <li><span class="check">✓</span> Private community of buyers in the same archetype</li>
+            <li><span class="check">✓</span> Two 30-min Q&amp;A calls in the 90 days</li>
+          </ul>
+          <a id="sprint-link" href="#" target="_blank" rel="noopener" class="btn btn-primary btn-arrow">Start the Sprint — $197</a>
+        </div>
+      </div>
+
+      <p style="font-size: 13px; color: var(--grey-1); margin-top: 32px;">14-day refund · Secure checkout</p>
 
       <button onclick="restart()" style="display: block; margin: 56px auto 0; background: none; border: none; color: var(--grey-1); font-family: inherit; font-size: 14px; cursor: pointer;">Take the assessment again</button>
     </section>

@@ -7,7 +7,8 @@
 // CONFIGURATION — edit these to monetize
 // ---------------------------------------------------------------------------
 const CONFIG = {
-  STRIPE_PAYMENT_LINK: 'https://buy.stripe.com/REPLACE_ME',
+  // Checkout URL — currently Revolut, was originally Stripe. Same pattern: any payment link works here.
+  STRIPE_PAYMENT_LINK: 'https://checkout.revolut.com/pay/cbde0607-8a14-4e6c-ac59-fd06d17dd645',
   EMAIL_ENDPOINT: '/api/subscribe',
 
   CATEGORY_LABELS: {
